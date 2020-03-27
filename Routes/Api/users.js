@@ -7,6 +7,7 @@ const isRegistrationValid = require("../../Validations/Register");
 const isLoginValid = require("../../Validations/Login");
 const Passport = require("passport");
 const UserModel = require("../../Models/User");
+const ProfileModel = require("../../Models/Profile");
 const Route = Express.Router();
 
 //@Route=/api/user/register
@@ -111,16 +112,26 @@ Route.post("/login", async (req, res) => {
   });
 });
 
+// Middleware
+Route.use(Passport.authenticate("jwt", { session: false }));
 //@Route=/api/user/current
 //@Access=Private
 //@Purpose=To Get Current LoggedIn User
-Route.get(
-  "/current",
-  Passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.status(200).json({
-      User: req.user
-    });
-  }
-);
+Route.get("/current", (req, res) => {
+  res.status(200).json({
+    User: req.user
+  });
+});
+
+//@Route=/api/user/me
+//@Access=Private
+//@Purpose=To Delete Account As Well As Profile
+Route.delete("/me", async (req, res) => {
+  await ProfileModel.findOneAndRemove({ user: req.user.id });
+  await UserModel.findByIdAndDelete(req.user.id);
+  res.status(200).json({
+    Status: "Success",
+    Message: "Deleted Successfully!!!"
+  });
+});
 module.exports = Route;

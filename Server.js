@@ -38,7 +38,6 @@ App.use("/api/users", User);
 App.use("/api/profile", Profile);
 App.use("/api/post", Post);
 
-App.get("/", (req, res, next) => res.status(200).json("HELLO WORLD"));
 const Port = process.env.PORT || 5000;
 
 App.all("*", (req, res) => {
