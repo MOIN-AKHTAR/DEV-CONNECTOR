@@ -4,12 +4,16 @@
   "description": "Connect All Developer On A Single Platform",
   "main": "Server.js",
   "scripts": {
-    "script": "nodemon Server.js"
+    "script": "nodemon Server.js",
+    "client": "npm start --prefix dev-connector",
+    "dev-connector-install": "npm install --prefix dev-connector",
+    "dev": "concurrently \"npm run script\" \"npm run client\""
   },
   "author": "MOIN-AKHTER",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.1.0",
     "express": "^4.17.1",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
