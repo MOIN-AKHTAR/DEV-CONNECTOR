@@ -122,7 +122,7 @@ Route.post("/unlike/:id", async (req, res) => {
 // @route   POST api/posts/comment/:id
 // @desc    Add comment to post
 // @access  Private
-router.post("/comment/:id", async (req, res) => {
+Route.post("/comment/:id", async (req, res) => {
   const { errors, isValid } = PostValidation(req.body);
 
   // Check Validation
@@ -162,7 +162,7 @@ router.post("/comment/:id", async (req, res) => {
 // @route   DELETE api/posts/comment/:id/:comment_id
 // @desc    Remove comment from post
 // @access  Private
-router.delete("/comment/:id/:comment_id", async (req, res) => {
+Route.delete("/comment/:id/:comment_id", async (req, res) => {
   const post = await PostModel.findById(req.params.id);
   if (!post) {
     return res.status(404).json({
