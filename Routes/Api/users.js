@@ -21,12 +21,15 @@ Route.post("/register", (req, res) => {
       error
     });
   }
+  // Finding That We Have Any User With This Email
   UserModel.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
         return res.status(400).json({
           Status: "Failed",
-          Email: "This Email Already Exists"
+          error: {
+            email: "This Email Already Exists"
+          }
         });
       } else {
         // Gravatar pkg will take email and provide you avatar according to email if any otherwise we can
@@ -44,7 +47,7 @@ Route.post("/register", (req, res) => {
           avatar,
           password: req.body.password
         });
-        //   A Salt is nothing a sequence of random number
+        // A Salt is nothing a sequence of random number
         // Which will Hash The password to make it safer-
         Bcrypt.genSalt(10, (err, salt) => {
           Bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -93,15 +96,18 @@ Route.post("/login", async (req, res) => {
   if (!User) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "Couldn't Find User"
+      error: {
+        email: "Couldn't Find User From This Email"
+      }
     });
   }
   const isMatch = await Bcrypt.compare(password, User.password);
-
   if (!isMatch) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "Couldn't Find User"
+      error: {
+        password: "Couldn't Find User From This Password"
+      }
     });
   }
   const Payload = { id: User._id, email: User.email, avatar: User.avatar };

@@ -1,7 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Logout } from "../Redux/Action/LogOut";
 
-export default function Navbar() {
+function Navbar(props) {
+  const { isAuthenticated, user } = props.auth;
+  const LogoutUser = e => {
+    e.preventDefault();
+    props.Logout();
+  };
+  const LoggedInLinks = (
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <a href="#" className="nav-link" onClick={LogoutUser}>
+          <img
+            className="rounded-circle"
+            style={{ width: "25px", marginRight: "0.5rem" }}
+            src={user.avatar}
+            alt="No Preview"
+            title="Your Image Is Seleted By Gravatar Based On Email"
+          />
+          Logout
+        </a>
+      </li>
+    </ul>
+  );
+  const LoggedOutLink = (
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item">
+        <Link className="nav-link" to="/register">
+          Sign Up
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
+          Login
+        </Link>
+      </li>
+    </ul>
+  );
   return (
     <nav className="navbar navbar-expand-sm navbar-dark mb-4 bg-dark">
       <div className="container">
@@ -25,21 +62,15 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">
-                Sign Up
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-          </ul>
+          {isAuthenticated ? LoggedInLinks : LoggedOutLink}
         </div>
       </div>
     </nav>
   );
 }
+const mapStateToProps = State => {
+  return {
+    auth: State.auth
+  };
+};
+export default connect(mapStateToProps, { Logout })(Navbar);

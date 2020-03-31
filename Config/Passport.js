@@ -6,7 +6,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 // An Object Which Will Provide Whole Information That We Want To Use Bearer Token And SecretKey
 const opts = {};
-// Telling We Want A Beare Token Only-
+// Telling We Want A Bearer Token Only-
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 // Secret Key While Generating Token
 opts.secretOrKey = Keys.secretKey;

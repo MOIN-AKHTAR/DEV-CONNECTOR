@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import classnames from "classnames";
-import axios from "axios";
+import TextGroup from "../../Share/TextGroup";
+import { connect } from "react-redux";
+import { RegisterUserAction } from "../../Redux/Action/RegisterUser";
+import { withRouter } from "react-router-dom";
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,21 +16,28 @@ export default class Register extends Component {
     };
   }
   OnChange = e => {
+    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
   Submit = e => {
     e.preventDefault();
-    console.log(this.state);
-    axios
-      .post("/api/user/register/", this.state)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => this.setState({ error: err.response.data.error }));
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      conform_password: this.state.conform_password
+    };
+    this.props.RegisterUserAction(newUser, this.props.history);
   };
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.error) {
+      this.setState({ error: nextProps.error });
+    }
+  }
   render() {
+    const { error } = this.state;
     return (
       <div className="register">
         <div className="container">
@@ -43,70 +52,41 @@ export default class Register extends Component {
                 action="create-profile.html"
                 onSubmit={this.Submit}
               >
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": this.state.error.name
-                    })}
-                    placeholder="Name"
-                    value={this.state.name}
-                    onChange={this.OnChange}
-                    name="name"
-                  />
-                  <div className="invalid-feedback">
-                    {this.state.error.name}
-                  </div>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": this.state.error.email
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.OnChange}
-                  />
-                  <div className="invalid-feedback">
-                    {this.state.error.email}
-                  </div>
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use
-                    a Gravatar email
-                  </small>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": this.state.error.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.OnChange}
-                  />
-                  <div className="invalid-feedback">
-                    {this.state.error.password}
-                  </div>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": this.state.error.conform_password
-                    })}
-                    placeholder="Confirm Password"
-                    name="conform_password"
-                    value={this.state.conform_password}
-                    onChange={this.OnChange}
-                  />
-                  <div className="invalid-feedback">
-                    {this.state.error.conform_password}
-                  </div>
-                </div>
+                <TextGroup
+                  type="text"
+                  placeholder="Enter Your Name"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.OnChange}
+                  error={error.name}
+                />
+                <TextGroup
+                  type="email"
+                  placeholder="Enter Your Email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.OnChange}
+                  error={error.email}
+                  info="This site uses Gravatar so if you want a profile image, use a
+                  Gravatar email"
+                />
+
+                <TextGroup
+                  type="password"
+                  placeholder="Enter Your Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.OnChange}
+                  error={error.password}
+                />
+                <TextGroup
+                  type="password"
+                  placeholder="Enter Password To Conform"
+                  name="conform_password"
+                  value={this.state.conform_password}
+                  onChange={this.OnChange}
+                  error={error.conform_password}
+                />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
@@ -116,3 +96,12 @@ export default class Register extends Component {
     );
   }
 }
+const mapStateToProps = State => {
+  return {
+    auth: State.auth,
+    error: State.error
+  };
+};
+export default connect(mapStateToProps, { RegisterUserAction })(
+  withRouter(Register)
+);
