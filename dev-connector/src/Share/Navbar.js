@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Logout } from "../Redux/Action/LogOut";
+import { clearCurrentProfile } from "../Redux/Action/Profile";
 
 function Navbar(props) {
   const { isAuthenticated, user } = props.auth;
   const LogoutUser = e => {
     e.preventDefault();
+    props.clearCurrentProfile();
     props.Logout();
   };
   const LoggedInLinks = (
@@ -73,4 +75,6 @@ const mapStateToProps = State => {
     auth: State.auth
   };
 };
-export default connect(mapStateToProps, { Logout })(Navbar);
+export default connect(mapStateToProps, { Logout, clearCurrentProfile })(
+  Navbar
+);

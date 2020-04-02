@@ -29,7 +29,7 @@ class Login extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/register");
+      this.props.history.push("/dashboard");
     } else if (nextProps.error) {
       this.setState({
         error: nextProps.error

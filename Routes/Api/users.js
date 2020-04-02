@@ -110,7 +110,12 @@ Route.post("/login", async (req, res) => {
       }
     });
   }
-  const Payload = { id: User._id, email: User.email, avatar: User.avatar };
+  const Payload = {
+    id: User._id,
+    email: User.email,
+    avatar: User.avatar,
+    name: User.name
+  };
   const Token = JWT.sign(Payload, Key.secretKey, { expiresIn: "1h" });
   return res.status(200).json({
     Status: "Success",

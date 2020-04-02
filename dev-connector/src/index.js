@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import { setAuthToken } from "./Utils/setAuthToken";
 import { setCurrentUser } from "./Redux/Action/LoginUser";
 import { Logout } from "./Redux/Action/LogOut";
+import { clearCurrentProfile } from "./Redux/Action/Profile";
 import { Provider } from "react-redux";
 import Store from "./Redux/Store";
 // Keeping User LoggedIn Even We Hard Refresh
@@ -20,6 +21,7 @@ if (localStorage.jwt_token) {
 
   if (User.exp < CurrentTime) {
     Store.dispatch(Logout());
+    Store.dispatch(clearCurrentProfile());
     window.location.href = "/login";
   }
 }
