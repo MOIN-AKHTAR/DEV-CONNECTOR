@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCurrentProfile } from "../Redux/Action/Profile";
+import { getCurrentProfile, deleteAccount } from "../Redux/Action/Profile";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,9 @@ class DashBoard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+  DeleteAccount = e => {
+    this.props.deleteAccount();
+  };
   render() {
     let dashboardContent;
     const { user } = this.props.auth;
@@ -19,23 +22,30 @@ class DashBoard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
-            <div class="btn-group mb-4" role="group">
-              <h3>
-                Welcome <Link>{user.name}</Link>
-              </h3>
-              <Link href="edit-profile.html" class="btn btn-light">
-                <i class="fas fa-user-circle text-info mr-1"></i> Edit Profile
+            <h3>
+              Welcome <Link to="/my-info">{user.name}</Link>
+            </h3>
+            <div className="btn-group mb-4" role="group">
+              <Link to="/edit-profile" className="btn btn-light">
+                <i className="fas fa-user-circle text-info mr-1"></i> Edit
+                Profile
               </Link>
-              <Link href="add-experience.html" class="btn btn-light">
-                <i class="fab fa-black-tie text-info mr-1"></i>
+              <Link to="/add-experience" className="btn btn-light">
+                <i className="fab fa-black-tie text-info mr-1"></i>
                 Add Experience
               </Link>
-              <Link href="add-education.html" class="btn btn-light">
-                <i class="fas fa-graduation-cap text-info mr-1"></i>
+              <Link to="/add-education" className="btn btn-light">
+                <i className="fas fa-graduation-cap text-info mr-1"></i>
                 Add Education
               </Link>
-              <div style={{ marginBottom: "60px" }}></div>
-              <div className="btn btn-danger">Delete Account</div>
+            </div>
+            <div
+              style={{
+                marginBottom: "60px"
+              }}
+            ></div>
+            <div className="btn btn-danger" onClick={this.DeleteAccount}>
+              Delete Account
             </div>
           </div>
         );
@@ -71,4 +81,6 @@ const mapStateToProps = State => {
     profile: State.profile
   };
 };
-export default connect(mapStateToProps, { getCurrentProfile })(DashBoard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  DashBoard
+);

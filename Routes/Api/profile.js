@@ -2,6 +2,7 @@ const Express = require("express");
 const Route = Express.Router();
 const Passport = require("passport");
 const ProfileModel = require("../../Models/Profile");
+const UserModel = require("../../Models/User");
 const ProfileValidation = require("../../Validations/Profile");
 const ExperienceValidation = require("../../Validations/Experienc");
 const EducationValidation = require("../../Validations/Education");
@@ -248,5 +249,18 @@ Route.delete("/education/:id", async (req, res) => {
     Status: "Success",
     Profile
   });
+});
+
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+Route.delete("/", (req, res) => {
+  ProfileModel.findOneAndRemove({ user: req.user.id })
+    .then(() => {
+      UserModel.findOneAndRemove({ _id: req.user.id }).then(() =>
+        res.json({ success: true })
+      );
+    })
+    .catch(err => res.json({ err }));
 });
 module.exports = Route;
