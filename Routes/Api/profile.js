@@ -86,16 +86,17 @@ Route.get("/", async (req, res) => {
 // @Desc = Update/Inser Profile Of Currently LoggedIn User
 Route.post("/", async (req, res) => {
   const { error, isValid } = ProfileValidation(req.body);
-
   const ProfileFields = {};
   ProfileFields.user = req.user.id;
   if (req.body.handle) ProfileFields.handle = req.body.handle;
+  if (req.body.company) ProfileFields.company = req.body.company;
   if (req.body.website) ProfileFields.website = req.body.website;
   if (req.body.location) ProfileFields.location = req.body.location;
   if (req.body.bio) ProfileFields.bio = req.body.bio;
   if (req.body.status) ProfileFields.status = req.body.status;
   if (req.body.githubusername)
     ProfileFields.githubusername = req.body.githubusername;
+
   if (typeof req.body.skills !== "undefined") {
     ProfileFields.skills = req.body.skills.split(",");
   }
@@ -105,6 +106,7 @@ Route.post("/", async (req, res) => {
   if (req.body.linkedin) ProfileFields.social.linkedin = req.body.linkedin;
   if (req.body.instagram) ProfileFields.social.instagram = req.body.instagram;
   if (req.body.facebook) ProfileFields.social.facebook = req.body.facebook;
+
   const ProfileOfUser = await ProfileModel.findOne({ user: req.user.id });
   if (!isValid) {
     return res.status(400).json({
@@ -135,6 +137,7 @@ Route.post("/", async (req, res) => {
       });
     } else {
       const NewProfile = await new ProfileModel(ProfileFields).save();
+
       res.status(201).json({
         Status: "Success",
         Profile: NewProfile

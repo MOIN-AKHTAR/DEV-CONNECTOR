@@ -6,8 +6,6 @@ const EducationValidation = data => {
   data.degree = !isEmpty(data.degree) ? data.degree : "";
   data.fieldofstudy = !isEmpty(data.fieldofstudy) ? data.fieldofstudy : "";
   data.from = !isEmpty(data.from) ? data.from : "";
-  data.to = !isEmpty(data.to) ? data.to : "";
-  data.description = !isEmpty(data.description) ? data.description : "";
   if (Validator.isEmpty(data.school)) {
     error.school = "Must Provide School";
   }
@@ -20,12 +18,7 @@ const EducationValidation = data => {
   if (Validator.isEmpty(data.from)) {
     error.from = "Must Provide From";
   }
-  if (Validator.isEmpty(data.to)) {
-    error.to = "Must Provide To";
-  }
-  if (Validator.isEmpty(data.description)) {
-    error.description = "Must Provide Description";
-  }
+
   return {
     error,
     isValid: isEmpty(error)

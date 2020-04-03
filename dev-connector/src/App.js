@@ -13,6 +13,9 @@ import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import DashBoard from "./Components/DashBoard";
 import Profile from "./Components/Profile";
+import EditProfile from "./Components/Editprofile";
+import AddExperience from "./Components/AddExperience";
+import AddEducation from "./Components/AddEducation";
 import PrivateRoute from "./Components/PrivateRoute";
 import "./App.css";
 
@@ -27,6 +30,9 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <PrivateRoute path="/dashboard" component={DashBoard} />
           <PrivateRoute path="/create-profile" component={Profile} />
+          <PrivateRoute path="/edit-profile" component={EditProfile} />
+          <PrivateRoute path="/add-experience" component={AddExperience} />
+          <PrivateRoute path="/add-education" component={AddEducation} />
           <Redirect to="/" />
         </Switch>
         <Footer />

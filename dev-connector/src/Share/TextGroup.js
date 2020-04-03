@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 export default function TextGroup({
-  type,
+  type = "text",
   error,
   name,
   value,

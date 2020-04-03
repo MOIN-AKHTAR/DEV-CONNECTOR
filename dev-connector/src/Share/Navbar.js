@@ -14,6 +14,11 @@ function Navbar(props) {
   const LoggedInLinks = (
     <ul className="navbar-nav ml-auto">
       <li className="nav-item">
+        <Link className="nav-link" to="/dashboard">
+          Dashboard
+        </Link>
+      </li>
+      <li className="nav-item">
         <a href="#" className="nav-link" onClick={LogoutUser}>
           <img
             className="rounded-circle"

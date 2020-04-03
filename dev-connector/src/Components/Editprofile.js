@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import InputGroup from "../Share/InputGroup";
 import TextArea from "../Share/TextArea";
 import SelectListGroup from "../Share/SelectListGroup";
 import TextGroup from "../Share/TextGroup";
-import { createProfile } from "../Redux/Action/Profile";
+import { createProfile, getCurrentProfile } from "../Redux/Action/Profile";
+import { isEmpty } from "../Utils/isEmpty";
 
-class Profile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +36,7 @@ class Profile extends Component {
   };
   onSubmit = e => {
     e.preventDefault();
-    const profiledata = {
+    const profileData = {
       handle: this.state.handle,
       company: this.state.company,
       website: this.state.website,
@@ -50,13 +51,64 @@ class Profile extends Component {
       youtube: this.state.youtube,
       instagram: this.state.instagram
     };
-    this.props.createProfile(profiledata, this.props.history);
+    console.log(profileData);
+    this.props.createProfile(profileData, this.props.history);
   };
 
+  componentDidMount() {
+    //   Getting Current User Profile
+    this.props.getCurrentProfile();
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({
         error: nextProps.error
+      });
+    }
+    if (nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+      // Bring Skill Array Back To Comma Separated Value
+      const skillCSV = profile.skills.join(",");
+      //If profile field doesn't exist ,make it empty string
+      profile.company = !isEmpty(profile.company) ? profile.company : "";
+      profile.website = !isEmpty(profile.website) ? profile.website : "";
+      profile.location = !isEmpty(profile.location) ? profile.location : "";
+      profile.githubusername = !isEmpty(profile.githubusername)
+        ? profile.githubusername
+        : "";
+      profile.bio = !isEmpty(profile.bio) ? profile.bio : "";
+      profile.status = !isEmpty(profile.status) ? profile.status : "";
+      profile.social = !isEmpty(profile.social) ? profile.social : {};
+      profile.social.twitter = !isEmpty(profile.social.twitter)
+        ? profile.social.twitter
+        : "";
+      profile.social.facebook = !isEmpty(profile.social.facebook)
+        ? profile.social.facebook
+        : "";
+      profile.social.youtube = !isEmpty(profile.social.youtube)
+        ? profile.social.youtube
+        : "";
+      profile.social.linkedin = !isEmpty(profile.social.linkedin)
+        ? profile.social.linkedin
+        : "";
+      profile.social.instagram = !isEmpty(profile.social.instagram)
+        ? profile.social.instagram
+        : "";
+
+      this.setState({
+        handle: profile.handle,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        status: profile.status,
+        skills: skillCSV,
+        githubusername: profile.githubusername,
+        bio: profile.bio,
+        twitter: profile.social.twitter,
+        facebook: profile.social.facebook,
+        linkedin: profile.social.linkedin,
+        youtube: profile.social.youtube,
+        instagram: profile.social.instagram
       });
     }
   }
@@ -155,10 +207,11 @@ class Profile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">
-                Let's get some information to make your profile stand out
-              </p>
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back
+              </Link>
+              <h1 className="display-4 text-center">Edit Your Profile</h1>
+
               <small className="d-block pb-3">*= required</small>
               <form onSubmit={this.onSubmit}>
                 <TextGroup
@@ -240,7 +293,7 @@ class Profile extends Component {
                   </button>
                   <span className="text-muted">Optional</span>
                   {socialInputs}
-                  <button className="btn btn-info btn-block mt-4">
+                  <button className="btn btn-info btn-block mt-4" type="submit">
                     Submit
                   </button>
                 </div>
@@ -258,4 +311,6 @@ const mapStateToProps = State => {
     error: State.error
   };
 };
-export default connect(mapStateToProps, { createProfile })(withRouter(Profile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);
