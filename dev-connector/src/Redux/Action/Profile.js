@@ -4,53 +4,53 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER,
-  GET_ERROR
+  GET_ERROR,
 } from "../Types/ActionType";
 
-export const createProfile = (data, history) => Dispatch => {
+export const createProfile = (data, history) => (Dispatch) => {
   Axios.post("/api/profile", data)
-    .then(res => {
+    .then((res) => {
       history.push("/dashboard");
     })
-    .catch(err => {
+    .catch((err) => {
       Dispatch({
         type: GET_ERROR,
-        Payload: err.response.data.error
+        Payload: err.response.data.error,
       });
     });
 };
 
-export const getCurrentProfile = () => dispatch => {
+export const getCurrentProfile = () => (dispatch) => {
   dispatch(setProfileLoading());
   Axios.get("/api/profile")
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: GET_PROFILE,
-        Payload: res.data.Profile ? res.data.Profile : res.data
+        Payload: res.data.Profile ? res.data.Profile : res.data,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: GET_PROFILE,
-        Payload: {}
+        Payload: {},
       });
     });
 };
 
-export const deleteAccount = () => Dispatch => {
+export const deleteAccount = () => (Dispatch) => {
   if (window.confirm("Do You Want To Delete Account?")) {
     Axios.delete("/api/profile")
-      .then(res => {
+      .then((res) => {
         Dispatch({
           type: SET_CURRENT_USER,
-          Payload: {}
+          Payload: {},
         });
         Dispatch(clearCurrentProfile());
       })
-      .catch(err => {
+      .catch((err) => {
         Dispatch({
           type: GET_ERROR,
-          Payload: err.response.data.err
+          Payload: err.response.data.err,
         });
       });
   }
@@ -58,38 +58,70 @@ export const deleteAccount = () => Dispatch => {
 
 export const setProfileLoading = () => {
   return {
-    type: PROFILE_LOADING
+    type: PROFILE_LOADING,
   };
 };
 
 export const clearCurrentProfile = () => {
   return {
-    type: CLEAR_CURRENT_PROFILE
+    type: CLEAR_CURRENT_PROFILE,
   };
 };
 
-export const addExperience = (expData, history) => Dispatch => {
+export const addExperience = (expData, history) => (Dispatch) => {
   Axios.post("/api/profile/experience", expData)
-    .then(res => {
+    .then((res) => {
       history.push("/dashboard");
     })
-    .catch(err => {
+    .catch((err) => {
       Dispatch({
         type: GET_ERROR,
-        Payload: err.response.data.error
+        Payload: err.response.data.error,
       });
     });
 };
 
-export const addEducation = (eduData, history) => Dispatch => {
+export const addEducation = (eduData, history) => (Dispatch) => {
   Axios.post("/api/profile/education", eduData)
-    .then(res => {
+    .then((res) => {
       history.push("/dashboard");
     })
-    .catch(err => {
+    .catch((err) => {
       Dispatch({
         type: GET_ERROR,
-        Payload: err.response.data.error
+        Payload: err.response.data.error,
+      });
+    });
+};
+
+export const deleteExperience = (exp_Id) => (Dispatch) => {
+  Axios.delete("/api/profile/experience/" + exp_Id)
+    .then((res) => {
+      Dispatch({
+        type: GET_PROFILE,
+        Payload: res.data.Profile,
+      });
+    })
+    .catch((err) => {
+      Dispatch({
+        type: GET_ERROR,
+        Payload: err.response.data.error,
+      });
+    });
+};
+
+export const deleteEducation = (edu_Id) => (Dispatch) => {
+  Axios.delete("/api/profile/education/" + edu_Id)
+    .then((res) => {
+      Dispatch({
+        type: GET_PROFILE,
+        Payload: res.data.Profile,
+      });
+    })
+    .catch((err) => {
+      Dispatch({
+        type: GET_ERROR,
+        Payload: err.response.data.error,
       });
     });
 };

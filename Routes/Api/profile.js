@@ -13,17 +13,17 @@ const EducationValidation = require("../../Validations/Education");
 
 Route.get("/handle/:handle", async (req, res) => {
   const Profile = await ProfileModel.findOne({
-    handle: req.params.handle
+    handle: req.params.handle,
   }).populate("user", ["name", "avatar"]);
   if (!Profile) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "No Profile Found With This Handle"
+      Message: "No Profile Found With This Handle",
     });
   }
   return res.status(200).json({
     Status: "Success",
-    Profile
+    Profile,
   });
 });
 
@@ -34,17 +34,17 @@ Route.get("/handle/:handle", async (req, res) => {
 Route.get("/user/:id", async (req, res) => {
   const Profile = await ProfileModel.findById(req.params.id).populate("user", [
     "name",
-    "avatar"
+    "avatar",
   ]);
   if (!Profile) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "No Profile Found With This Id"
+      Message: "No Profile Found With This Id",
     });
   }
   return res.status(200).json({
     Status: "Success",
-    Profile
+    Profile,
   });
 });
 
@@ -54,12 +54,12 @@ Route.get("/user/:id", async (req, res) => {
 Route.get("/all", async (req, res) => {
   const Profiles = await ProfileModel.find({}).populate("user", [
     "name",
-    "avatar"
+    "avatar",
   ]);
   res.status(200).json({
     Status: "Success",
     Count: Profiles.length,
-    Profiles
+    Profiles,
   });
 });
 
@@ -72,12 +72,12 @@ Route.get("/", async (req, res) => {
   if (!Profile) {
     return res.status(404).json({
       Status: "failed",
-      Message: "Couldn't Find Profile Of This User"
+      Message: "Couldn't Find Profile Of This User",
     });
   }
   return res.status(200).json({
     Status: "Success",
-    Profile
+    Profile,
   });
 });
 
@@ -111,7 +111,7 @@ Route.post("/", async (req, res) => {
   if (!isValid) {
     return res.status(400).json({
       Status: "Failed",
-      error
+      error,
     });
   }
   // If We Have Profile Of User Then We Will Update-
@@ -123,24 +123,24 @@ Route.post("/", async (req, res) => {
     ).populate("user", ["name", "avatar"]);
     return res.status(200).json({
       Status: "Success",
-      UpdatedProfile
+      UpdatedProfile,
     });
   } else {
     // If We Don't Have Profile Of User Then We Will Create Profile
     const UserWithSameHandle = await ProfileModel.findOne({
-      handle: ProfileFields.handle
+      handle: ProfileFields.handle,
     });
     if (UserWithSameHandle) {
       return res.status(400).json({
         Status: "Failed",
-        Message: "Use Unique Handle"
+        Message: "Use Unique Handle",
       });
     } else {
       const NewProfile = await new ProfileModel(ProfileFields).save();
 
       res.status(201).json({
         Status: "Success",
-        Profile: NewProfile
+        Profile: NewProfile,
       });
     }
   }
@@ -158,7 +158,7 @@ Route.post(
     if (!isValid) {
       return res.status(400).json({
         Status: "Failed",
-        error
+        error,
       });
     }
     const Profile = await ProfileModel.findOne({ user: req.user.id });
@@ -173,7 +173,7 @@ Route.post(
     await Profile.save();
     res.status(200).json({
       Status: "Success",
-      Profile
+      Profile,
     });
   }
 );
@@ -184,19 +184,19 @@ Route.post(
 Route.delete("/experience/:id", async (req, res) => {
   const Profile = await ProfileModel.findOne({ user: req.user.id });
   const removeIndex = Profile.experience
-    .map(Exp => Exp._id)
+    .map((Exp) => Exp._id)
     .indexOf(req.params.id);
   Profile.experience.splice(removeIndex, 1);
   if (removeIndex < 0) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "Can Not Find Experience"
+      Message: "Can Not Find Experience",
     });
   }
   await Profile.save();
   res.status(200).json({
     Status: "Success",
-    Profile
+    Profile,
   });
 });
 
@@ -212,7 +212,7 @@ Route.post(
     if (!isValid) {
       return res.status(400).json({
         Status: "Failed",
-        error
+        error,
       });
     }
     const Profile = await ProfileModel.findOne({ user: req.user.id });
@@ -227,7 +227,7 @@ Route.post(
     await Profile.save();
     res.status(200).json({
       Status: "Success",
-      Profile
+      Profile,
     });
   }
 );
@@ -238,19 +238,19 @@ Route.post(
 Route.delete("/education/:id", async (req, res) => {
   const Profile = await ProfileModel.findOne({ user: req.user.id });
   const removeIndex = Profile.education
-    .map(edu => edu._id)
+    .map((edu) => edu._id)
     .indexOf(req.params.id);
   Profile.education.splice(removeIndex, 1);
   if (removeIndex < 0) {
     return res.status(404).json({
       Status: "Failed",
-      Message: "Can Not Find Education"
+      Message: "Can Not Find Education",
     });
   }
   await Profile.save();
   res.status(200).json({
     Status: "Success",
-    Profile
+    Profile,
   });
 });
 
@@ -264,6 +264,6 @@ Route.delete("/", (req, res) => {
         res.json({ success: true })
       );
     })
-    .catch(err => res.json({ err }));
+    .catch((err) => res.json({ err }));
 });
 module.exports = Route;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Experience from "./Experience";
+import Education from "./Education";
 import { getCurrentProfile, deleteAccount } from "../Redux/Action/Profile";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
@@ -8,7 +10,7 @@ class DashBoard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
-  DeleteAccount = e => {
+  DeleteAccount = (e) => {
     this.props.deleteAccount();
   };
   render() {
@@ -39,9 +41,11 @@ class DashBoard extends Component {
                 Add Education
               </Link>
             </div>
+            <Experience experience={profile.experience} />
+            <Education education={profile.education} />
             <div
               style={{
-                marginBottom: "60px"
+                marginBottom: "60px",
               }}
             ></div>
             <div className="btn btn-danger" onClick={this.DeleteAccount}>
@@ -75,10 +79,10 @@ class DashBoard extends Component {
     );
   }
 }
-const mapStateToProps = State => {
+const mapStateToProps = (State) => {
   return {
     auth: State.auth,
-    profile: State.profile
+    profile: State.profile,
   };
 };
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
