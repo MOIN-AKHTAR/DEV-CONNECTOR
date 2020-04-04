@@ -1,12 +1,13 @@
 import {
   GET_PROFILE,
   PROFILE_LOADING,
-  CLEAR_CURRENT_PROFILE
+  CLEAR_CURRENT_PROFILE,
+  GET_PROFILES,
 } from "../Types/ActionType";
 const initialState = {
   profile: null,
   profiles: null,
-  loading: false
+  loading: false,
 };
 
 export const ProfileReducer = (State = initialState, Action) => {
@@ -14,20 +15,27 @@ export const ProfileReducer = (State = initialState, Action) => {
     case PROFILE_LOADING: {
       return {
         ...State,
-        loading: true
+        loading: true,
       };
     }
     case GET_PROFILE: {
       return {
         ...State,
         profile: Action.Payload,
-        loading: false
+        loading: false,
+      };
+    }
+    case GET_PROFILES: {
+      return {
+        ...State,
+        profiles: Action.Payload,
+        loading: false,
       };
     }
     case CLEAR_CURRENT_PROFILE: {
       return {
         ...State,
-        profile: null
+        profile: null,
       };
     }
     default: {

@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
 import Navbar from "./Share/Navbar";
@@ -16,6 +16,7 @@ import Profile from "./Components/Profile";
 import EditProfile from "./Components/Editprofile";
 import AddExperience from "./Components/AddExperience";
 import AddEducation from "./Components/AddEducation";
+import ProfileList from "./Components/ProfileList";
 import PrivateRoute from "./Components/PrivateRoute";
 import "./App.css";
 
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/" exact component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/profile-list" component={ProfileList} />
           <PrivateRoute path="/dashboard" component={DashBoard} />
           <PrivateRoute path="/create-profile" component={Profile} />
           <PrivateRoute path="/edit-profile" component={EditProfile} />

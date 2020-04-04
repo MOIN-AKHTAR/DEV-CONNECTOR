@@ -6,7 +6,7 @@ import { clearCurrentProfile } from "../Redux/Action/Profile";
 
 function Navbar(props) {
   const { isAuthenticated, user } = props.auth;
-  const LogoutUser = e => {
+  const LogoutUser = (e) => {
     e.preventDefault();
     props.clearCurrentProfile();
     props.Logout();
@@ -64,9 +64,9 @@ function Navbar(props) {
         <div className="collapse navbar-collapse" id="mobile-nav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <a className="nav-link" href="profiles.html">
+              <Link className="nav-link" to="/profile-list">
                 Developers
-              </a>
+              </Link>
             </li>
           </ul>
           {isAuthenticated ? LoggedInLinks : LoggedOutLink}
@@ -75,9 +75,9 @@ function Navbar(props) {
     </nav>
   );
 }
-const mapStateToProps = State => {
+const mapStateToProps = (State) => {
   return {
-    auth: State.auth
+    auth: State.auth,
   };
 };
 export default connect(mapStateToProps, { Logout, clearCurrentProfile })(

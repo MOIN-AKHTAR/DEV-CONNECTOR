@@ -4,6 +4,7 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER,
+  GET_PROFILES,
   GET_ERROR,
 } from "../Types/ActionType";
 
@@ -122,6 +123,22 @@ export const deleteEducation = (edu_Id) => (Dispatch) => {
       Dispatch({
         type: GET_ERROR,
         Payload: err.response.data.error,
+      });
+    });
+};
+
+export const getProfiles = () => (Dispatch) => {
+  Axios.get("/api/profile/all/")
+    .then((res) => {
+      Dispatch({
+        type: GET_PROFILES,
+        Payload: res.data.Profiles,
+      });
+    })
+    .catch((err) => {
+      Dispatch({
+        type: GET_PROFILES,
+        Payload: null,
       });
     });
 };
