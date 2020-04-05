@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { deleteExperience } from "../Redux/Action/Profile";
+import { deleteExperience } from "../../Redux/Action/Profile";
 
 class Experience extends Component {
   deleteExperience = (Id) => {

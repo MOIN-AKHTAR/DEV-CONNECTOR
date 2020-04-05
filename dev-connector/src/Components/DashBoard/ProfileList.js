@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import ProfileItem from "./ProfileItem";
-import Spinner from "./Spinner";
+import Spinner from "../Others/Spinner";
+import { getProfiles, getCurrentProfile } from "../../Redux/Action/Profile";
 import { connect } from "react-redux";
-import { getProfiles } from "../Redux/Action/Profile";
 
 class ProfileList extends Component {
   componentDidMount() {
     //   Getting All Users Profiles
     this.props.getProfiles();
+    // Getting Current Users Profile
+    // this.props.getCurrentProfile();
   }
   render() {
     const { profiles, loading } = this.props.profile;
@@ -27,7 +29,7 @@ class ProfileList extends Component {
       <div className="profile_list">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 m-auto">
+            <div className="col-md-10 m-auto">
               <h1 className="display-4 text-center">Developers Profiles</h1>
               <p className="lead text-center">
                 Browse and Connect To Developers
@@ -44,4 +46,6 @@ class ProfileList extends Component {
 const mapStateToProps = (State) => ({
   profile: State.profile,
 });
-export default connect(mapStateToProps, { getProfiles })(ProfileList);
+export default connect(mapStateToProps, { getProfiles, getCurrentProfile })(
+  ProfileList
+);

@@ -12,21 +12,21 @@ class Register extends Component {
       email: "",
       password: "",
       conform_password: "",
-      error: {}
+      error: {},
     };
   }
-  OnChange = e => {
+  OnChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  Submit = e => {
+  Submit = (e) => {
     e.preventDefault();
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      conform_password: this.state.conform_password
+      conform_password: this.state.conform_password,
     };
     this.props.RegisterUserAction(newUser, this.props.history);
   };
@@ -95,10 +95,10 @@ class Register extends Component {
     );
   }
 }
-const mapStateToProps = State => {
+const mapStateToProps = (State) => {
   return {
     auth: State.auth,
-    error: State.error
+    error: State.error,
   };
 };
 export default connect(mapStateToProps, { RegisterUserAction })(

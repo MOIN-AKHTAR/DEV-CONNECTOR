@@ -19,7 +19,7 @@ function Navbar(props) {
         </Link>
       </li>
       <li className="nav-item">
-        <a href="#" className="nav-link" onClick={LogoutUser}>
+        <Link to="#" className="nav-link" onClick={LogoutUser}>
           <img
             className="rounded-circle"
             style={{ width: "25px", marginRight: "0.5rem" }}
@@ -28,7 +28,7 @@ function Navbar(props) {
             title="Your Image Is Seleted By Gravatar Based On Email"
           />
           Logout
-        </a>
+        </Link>
       </li>
     </ul>
   );
@@ -49,9 +49,9 @@ function Navbar(props) {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark mb-4 bg-dark">
       <div className="container">
-        <a className="navbar-brand" href="landing.html">
+        <Link className="navbar-brand" to="/">
           DevConnector
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import InputGroup from "../Share/InputGroup";
-import TextArea from "../Share/TextArea";
-import SelectListGroup from "../Share/SelectListGroup";
-import TextGroup from "../Share/TextGroup";
-import { createProfile } from "../Redux/Action/Profile";
+import InputGroup from "../../Share/InputGroup";
+import TextArea from "../../Share/TextArea";
+import SelectListGroup from "../../Share/SelectListGroup";
+import TextGroup from "../../Share/TextGroup";
+import { createProfile } from "../../Redux/Action/Profile";
 
 class Profile extends Component {
   constructor(props) {
@@ -25,15 +25,15 @@ class Profile extends Component {
       linkedin: "",
       youtube: "",
       instagram: "",
-      error: {}
+      error: {},
     };
   }
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const profiledata = {
       handle: this.state.handle,
@@ -48,7 +48,7 @@ class Profile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram
+      instagram: this.state.instagram,
     };
     this.props.createProfile(profiledata, this.props.history);
   };
@@ -56,7 +56,7 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({
-        error: nextProps.error
+        error: nextProps.error,
       });
     }
   }
@@ -67,40 +67,40 @@ class Profile extends Component {
     const options = [
       {
         lable: "* Select Professional Status",
-        value: "0"
+        value: "0",
       },
       {
         lable: "Developer",
-        value: "Developer"
+        value: "Developer",
       },
       {
         lable: "Junior Developer",
-        value: "Junior Developer"
+        value: "Junior Developer",
       },
       {
         lable: "Senior Developer",
-        value: "Senior Developer"
+        value: "Senior Developer",
       },
       {
         lable: "Manager",
-        value: "Manager"
+        value: "Manager",
       },
       {
         lable: "Student Or Learning",
-        value: "Student Or Learning"
+        value: "Student Or Learning",
       },
       {
         lable: "Instructor Or Teacher",
-        value: "Instructor Or Teacher"
+        value: "Instructor Or Teacher",
       },
       {
         lable: "Intern",
-        value: "Intern"
+        value: "Intern",
       },
       {
         lable: "Other",
-        value: "Other"
-      }
+        value: "Other",
+      },
     ];
     // It will show Social Profile Inputs
     let socialInputs;
@@ -231,8 +231,8 @@ class Profile extends Component {
                     className="btn btn-light m-2"
                     type="button"
                     onClick={() => {
-                      this.setState(prevState => ({
-                        displaySocialInputs: !prevState.displaySocialInputs
+                      this.setState((prevState) => ({
+                        displaySocialInputs: !prevState.displaySocialInputs,
                       }));
                     }}
                   >
@@ -252,10 +252,10 @@ class Profile extends Component {
     );
   }
 }
-const mapStateToProps = State => {
+const mapStateToProps = (State) => {
   return {
     profile: State.profile,
-    error: State.error
+    error: State.error,
   };
 };
 export default connect(mapStateToProps, { createProfile })(withRouter(Profile));

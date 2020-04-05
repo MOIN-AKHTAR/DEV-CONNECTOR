@@ -1,53 +1,53 @@
 import React, { Component } from "react";
-import TextGroup from "../Share/TextGroup";
-import TextArea from "../Share/TextArea";
+import TextGroup from "../../Share/TextGroup";
+import TextArea from "../../Share/TextArea";
+import { addExperience } from "../../Redux/Action/Profile";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addEducation } from "../Redux/Action/Profile";
 
 class AddExperience extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      school: "",
-      degree: "",
-      fieldofstudy: "",
+      company: "",
+      title: "",
+      location: "",
       from: "",
       to: "",
       current: false,
       description: "",
       error: {},
-      disabled: false
+      disabled: false,
     };
   }
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  onCheck = e => {
-    this.setState(prev => ({
+  onCheck = (e) => {
+    this.setState((prev) => ({
       disabled: !prev.disabled,
-      current: !prev.current
+      current: !prev.current,
     }));
   };
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
-    const eduData = {
-      school: this.state.school,
-      degree: this.state.degree,
-      fieldofstudy: this.state.fieldofstudy,
+    const expData = {
+      company: this.state.company,
+      title: this.state.title,
+      location: this.state.location,
       from: this.state.from,
       to: this.state.to,
       current: this.state.current,
-      description: this.state.description
+      description: this.state.description,
     };
-    this.props.addEducation(eduData, this.props.history);
+    this.props.addExperience(expData, this.props.history);
   };
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({
-        error: nextProps.error
+        error: nextProps.error,
       });
     }
   }
@@ -60,32 +60,32 @@ class AddExperience extends Component {
               <Link to="/dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="text-center display-4">Add Education</h1>
+              <h1 className="text-center display-4">Add Experience</h1>
               <p className="lead text-center">
-                Add some detail about your education
+                Add any job or position you have had in the past or current
               </p>
               <small className="d-block pb-3">*= required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextGroup
-                  placeholder="* School"
-                  name="school"
-                  value={this.state.school}
+                  placeholder="* Company"
+                  name="company"
+                  value={this.state.company}
                   onChange={this.onChange}
-                  error={this.state.error.school}
+                  error={this.state.error.company}
                 />
                 <TextGroup
-                  placeholder="* Degree/Certification"
-                  name="degree"
-                  value={this.state.degree}
+                  placeholder="* Job Title"
+                  name="title"
+                  value={this.state.title}
                   onChange={this.onChange}
-                  error={this.state.error.degree}
+                  error={this.state.error.title}
                 />
                 <TextGroup
-                  placeholder="* Field Of Study"
-                  name="fieldofstudy"
-                  value={this.state.fieldofstudy}
+                  placeholder="Location"
+                  name="location"
+                  value={this.state.location}
                   onChange={this.onChange}
-                  error={this.state.error.fieldofstudy}
+                  error={this.state.error.location}
                 />
                 <h6>From Date</h6>
                 <TextGroup
@@ -138,10 +138,10 @@ class AddExperience extends Component {
   }
 }
 
-const mapStateToProps = State => ({
+const mapStateToProps = (State) => ({
   profile: State.profile,
-  error: State.error
+  error: State.error,
 });
-export default connect(mapStateToProps, { addEducation })(
+export default connect(mapStateToProps, { addExperience })(
   withRouter(AddExperience)
 );

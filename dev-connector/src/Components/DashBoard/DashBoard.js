@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Experience from "./Experience";
-import Education from "./Education";
-import { getCurrentProfile, deleteAccount } from "../Redux/Action/Profile";
-import Spinner from "./Spinner";
+import Experience from "../DashBoard/Experience";
+import Education from "../DashBoard/Education";
+import { getCurrentProfile, deleteAccount } from "../../Redux/Action/Profile";
+import Spinner from "../Others/Spinner";
 import { Link } from "react-router-dom";
 
 class DashBoard extends Component {

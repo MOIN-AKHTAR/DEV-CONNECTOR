@@ -9,20 +9,20 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: {}
+      error: {},
     };
   }
-  OnChnage = e => {
+  OnChnage = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  Submit = e => {
+  Submit = (e) => {
     e.preventDefault();
 
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
     this.props.loginUser(user);
   };
@@ -32,7 +32,7 @@ class Login extends Component {
       this.props.history.push("/dashboard");
     } else if (nextProps.error) {
       this.setState({
-        error: nextProps.error
+        error: nextProps.error,
       });
     }
   }
@@ -75,9 +75,9 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = State => ({
+const mapStateToProps = (State) => ({
   error: State.error,
-  auth: State.auth
+  auth: State.auth,
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

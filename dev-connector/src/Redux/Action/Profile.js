@@ -142,3 +142,20 @@ export const getProfiles = () => (Dispatch) => {
       });
     });
 };
+
+export const getProfileByHandle = (handle) => (dispatch) => {
+  dispatch(setProfileLoading());
+  Axios.get(`/api/profile/handle/${handle}`)
+    .then((res) => {
+      dispatch({
+        type: GET_PROFILE,
+        Payload: res.data.Profile ? res.data.Profile : res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_PROFILE,
+        Payload: null,
+      });
+    });
+};

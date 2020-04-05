@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
-import { deleteEducation } from "../Redux/Action/Profile";
+import { deleteEducation } from "../../Redux/Action/Profile";
 
 class Education extends Component {
   deleteEducation = (Id) => {

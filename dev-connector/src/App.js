@@ -11,13 +11,14 @@ import Landing from "./Share/Landing";
 import Footer from "./Share/Footer";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
-import DashBoard from "./Components/DashBoard";
-import Profile from "./Components/Profile";
-import EditProfile from "./Components/Editprofile";
-import AddExperience from "./Components/AddExperience";
-import AddEducation from "./Components/AddEducation";
-import ProfileList from "./Components/ProfileList";
-import PrivateRoute from "./Components/PrivateRoute";
+import DashBoard from "./Components/DashBoard/DashBoard";
+import ProfileList from "./Components/DashBoard/ProfileList";
+import AddEducation from "./Components/Profile/AddEducation";
+import AddExperience from "./Components/Profile/AddExperience";
+import EditProfile from "./Components/Profile/Editprofile";
+import Profile from "./Components/Profile/Profile";
+import ProfileByHandler from "./Components/Profile/Specific_User_Profile/Profile";
+import PrivateRoute from "./Components/Others/PrivateRoute";
 import "./App.css";
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/profile-list" component={ProfileList} />
+          <Route path="/profile/:handle" component={ProfileByHandler} />
           <PrivateRoute path="/dashboard" component={DashBoard} />
           <PrivateRoute path="/create-profile" component={Profile} />
           <PrivateRoute path="/edit-profile" component={EditProfile} />
