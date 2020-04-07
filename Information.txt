@@ -1,0 +1,17 @@
+Pkgs Info:-
+bcryptjs ===> To Encrypt Password,
+concurrently ===> To run multiple Script Concurrently
+gravatar===> Used To Provide Avatar Based On Given Email
+jsonwebtoken ===> It Will Provide Token Which Will Be Used For Authentication
+mongoose ===> ODM 
+passport && passport-jwt ===> It Will Be Used For Authentication
+validator ===> Used For Validation Of Fields
+Axios ===> It Will Be Used For Making Ajax Requests
+classnames  ===> It Will Be Used For Setting className For Inputs-
+jwt-decode ===> It Will Decode Data From Token
+moment && react-moment ===> It Will Be Used For Time Formate
+react-redux ===> It Will Be Used To Connect Redux With React
+react-router-dom ===> It Will N=Be Used For Defining Routes
+redux  ===> It Will Be Used For Redux Such As For Making Store,Reducers,Actions etc
+redux-thunk ===> It Is A Middleware Which Allows You To Make Async Request While Dispatching
+express ===> For Making Our App As Express For Backend Server-
