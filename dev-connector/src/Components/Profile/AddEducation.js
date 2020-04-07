@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addEducation } from "../../Redux/Action/Profile";
 
+// This Component Will Allows You To Add Education
 class AddExperience extends Component {
   constructor(props) {
     super(props);
@@ -42,10 +43,12 @@ class AddExperience extends Component {
       current: this.state.current,
       description: this.state.description,
     };
+    // Calling AddEducation Action
     this.props.addEducation(eduData, this.props.history);
   };
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
+      // If Any Error Occur Set Error Property And Show Error On AddEducation Form
       this.setState({
         error: nextProps.error,
       });

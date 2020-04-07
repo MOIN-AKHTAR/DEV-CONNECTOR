@@ -7,8 +7,11 @@ import {
   GET_PROFILES,
   GET_ERROR,
 } from "../Types/ActionType";
+import { clearError } from "./Posts";
 
+// Craete Profile With This data
 export const createProfile = (data, history) => (Dispatch) => {
+  Dispatch(clearError());
   Axios.post("/api/profile", data)
     .then((res) => {
       history.push("/dashboard");
@@ -21,6 +24,7 @@ export const createProfile = (data, history) => (Dispatch) => {
     });
 };
 
+// Get Currently LoggedIn User's Profile
 export const getCurrentProfile = () => (dispatch) => {
   dispatch(setProfileLoading());
   Axios.get("/api/profile")
@@ -38,6 +42,7 @@ export const getCurrentProfile = () => (dispatch) => {
     });
 };
 
+// Delete Account Of Currently Loggedin User
 export const deleteAccount = () => (Dispatch) => {
   if (window.confirm("Do You Want To Delete Account?")) {
     Axios.delete("/api/profile")
@@ -57,19 +62,23 @@ export const deleteAccount = () => (Dispatch) => {
   }
 };
 
+// Loading Profile Please Wait....
 export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING,
   };
 };
 
+// Clear Currently LoggIn Users Profile
 export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE,
   };
 };
 
+// Add Experience with expData
 export const addExperience = (expData, history) => (Dispatch) => {
+  Dispatch(clearError());
   Axios.post("/api/profile/experience", expData)
     .then((res) => {
       history.push("/dashboard");
@@ -82,7 +91,9 @@ export const addExperience = (expData, history) => (Dispatch) => {
     });
 };
 
+// Add Education With eduData
 export const addEducation = (eduData, history) => (Dispatch) => {
+  Dispatch(clearError());
   Axios.post("/api/profile/education", eduData)
     .then((res) => {
       history.push("/dashboard");
@@ -95,6 +106,7 @@ export const addEducation = (eduData, history) => (Dispatch) => {
     });
 };
 
+// Delete Experience Which Have exp_Id
 export const deleteExperience = (exp_Id) => (Dispatch) => {
   Axios.delete("/api/profile/experience/" + exp_Id)
     .then((res) => {
@@ -111,6 +123,7 @@ export const deleteExperience = (exp_Id) => (Dispatch) => {
     });
 };
 
+// Delete  Eduaction Which Have edu_Id
 export const deleteEducation = (edu_Id) => (Dispatch) => {
   Axios.delete("/api/profile/education/" + edu_Id)
     .then((res) => {
@@ -127,6 +140,7 @@ export const deleteEducation = (edu_Id) => (Dispatch) => {
     });
 };
 
+// Get All Users Profile
 export const getProfiles = () => (Dispatch) => {
   Axios.get("/api/profile/all/")
     .then((res) => {
@@ -143,6 +157,7 @@ export const getProfiles = () => (Dispatch) => {
     });
 };
 
+// Get Profile By Their Specified Handler
 export const getProfileByHandle = (handle) => (dispatch) => {
   dispatch(setProfileLoading());
   Axios.get(`/api/profile/handle/${handle}`)

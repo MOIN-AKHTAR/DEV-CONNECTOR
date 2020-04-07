@@ -13,9 +13,9 @@ Mongoose.connect(
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   },
-  err => {
+  (err) => {
     if (err) {
       return console.log("Not Connectd To Mongodb :(");
     }
@@ -65,7 +65,7 @@ App.all("*", (req, res) => {
   res.status(401).json("Couldn't Find This Path :(");
 });
 // Listening At PORT
-App.listen(Port, err => {
+App.listen(Port, (err) => {
   if (err) {
     return console.log("Server Is NOt Running :(");
   }

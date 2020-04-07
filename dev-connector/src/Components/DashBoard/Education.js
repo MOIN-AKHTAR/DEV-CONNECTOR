@@ -5,6 +5,7 @@ import { deleteEducation } from "../../Redux/Action/Profile";
 
 class Education extends Component {
   deleteEducation = (Id) => {
+    // Delete Education Action
     this.props.deleteEducation(Id);
   };
 

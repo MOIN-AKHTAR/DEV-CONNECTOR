@@ -8,6 +8,7 @@ import TextGroup from "../../Share/TextGroup";
 import { createProfile, getCurrentProfile } from "../../Redux/Action/Profile";
 import { isEmpty } from "../../Utils/isEmpty";
 
+// This Component Will Allow You To Update Your Profile
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +52,7 @@ class EditProfile extends Component {
       youtube: this.state.youtube,
       instagram: this.state.instagram,
     };
-
+    // Calling Create Profile Action
     this.props.createProfile(profileData, this.props.history);
   };
 
@@ -59,8 +60,9 @@ class EditProfile extends Component {
     //   Getting Current User Profile
     this.props.getCurrentProfile();
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
+      // If Any Error Occur Set Error Property And Show Error On EditProfile Form
       this.setState({
         error: nextProps.error,
       });

@@ -18,6 +18,8 @@ import AddExperience from "./Components/Profile/AddExperience";
 import EditProfile from "./Components/Profile/Editprofile";
 import Profile from "./Components/Profile/Profile";
 import ProfileByHandler from "./Components/Profile/Specific_User_Profile/Profile";
+import Post from "./Components/Posts/Post";
+import SinglePost from "./Components/Posts/SinglePost/Post";
 import PrivateRoute from "./Components/Others/PrivateRoute";
 import "./App.css";
 
@@ -31,12 +33,14 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/profile-list" component={ProfileList} />
-          <Route path="/profile/:handle" component={ProfileByHandler} />
+          <PrivateRoute path="/feed" component={Post} />
           <PrivateRoute path="/dashboard" component={DashBoard} />
           <PrivateRoute path="/create-profile" component={Profile} />
           <PrivateRoute path="/edit-profile" component={EditProfile} />
           <PrivateRoute path="/add-experience" component={AddExperience} />
           <PrivateRoute path="/add-education" component={AddEducation} />
+          <PrivateRoute path="/post/:id" component={SinglePost} />
+          <Route path="/profile/:handle" component={ProfileByHandler} />
           <Redirect to="/" />
         </Switch>
         <Footer />

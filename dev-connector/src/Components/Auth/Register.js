@@ -28,10 +28,14 @@ class Register extends Component {
       password: this.state.password,
       conform_password: this.state.conform_password,
     };
+    // Calling Registration Action
+    // This .props.history Is A Parameter Which I'll Be Used By Action Inorder To Redirect To
+    // Other Page
     this.props.RegisterUserAction(newUser, this.props.history);
   };
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
+      // If Any Error Occur Then Set Error Property And Show Errors On Registration Form
       this.setState({ error: nextProps.error });
     }
   }
@@ -101,6 +105,8 @@ const mapStateToProps = (State) => {
     error: State.error,
   };
 };
+// Here withRouter Is A Function Which Allows You To Send history As A Parameter To Action So
+// That You Can Redirect To Any Page From Action
 export default connect(mapStateToProps, { RegisterUserAction })(
   withRouter(Register)
 );

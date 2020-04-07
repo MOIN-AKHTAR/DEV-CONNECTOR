@@ -1,10 +1,12 @@
 import Axios from "axios";
 import { GET_ERROR, SET_CURRENT_USER } from "../Types/ActionType";
 import { setAuthToken } from "../../Utils/setAuthToken";
+import { clearError } from "./Posts";
 import JWT_Decode from "jwt-decode";
-export const loginUser = Data => Dispatch => {
+export const loginUser = (Data) => (Dispatch) => {
+  Dispatch(clearError());
   Axios.post("/api/user/login", Data)
-    .then(res => {
+    .then((res) => {
       // Destructuring
       const { Token } = res.data;
       //Once Get Response Save To LocalStorage
@@ -15,17 +17,18 @@ export const loginUser = Data => Dispatch => {
       const Decode = JWT_Decode(Token);
       Dispatch(setCurrentUser(Decode));
     })
-    .catch(err => {
+    .catch((err) => {
       Dispatch({
         type: GET_ERROR,
-        Payload: err.response.data.error
+        Payload: err.response.data.error,
       });
     });
 };
 
-export const setCurrentUser = decode => {
+// Set Current User
+export const setCurrentUser = (decode) => {
   return {
     type: SET_CURRENT_USER,
-    Payload: decode
+    Payload: decode,
   };
 };

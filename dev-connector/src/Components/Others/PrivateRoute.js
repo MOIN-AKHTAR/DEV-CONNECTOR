@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
+// This Component Will Restict You To ProvateRoutes Only
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}

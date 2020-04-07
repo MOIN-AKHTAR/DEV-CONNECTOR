@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { isEmpty } from "../../../Utils/isEmpty";
 import { Link } from "react-router-dom";
 
+// This Component Will Show The Header Of Your Profile Which Will Be Consist On Big Picture As
+// Avatar And Your Name WIht Social Account Font-Awesome
 export default class ProfileHeader extends Component {
   render() {
     const { profile } = this.props;

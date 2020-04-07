@@ -7,6 +7,7 @@ import SelectListGroup from "../../Share/SelectListGroup";
 import TextGroup from "../../Share/TextGroup";
 import { createProfile } from "../../Redux/Action/Profile";
 
+// This Component Will Allow You To Create Your Profile
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -50,11 +51,14 @@ class Profile extends Component {
       youtube: this.state.youtube,
       instagram: this.state.instagram,
     };
+    // Calling Create Profile Action
+    // this.props.history Will Allow Your Action To Redirect To Other Page
     this.props.createProfile(profiledata, this.props.history);
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
+      // If Any Error Occur Set Error Property And Show Errors On Profile Form
       this.setState({
         error: nextProps.error,
       });
@@ -258,4 +262,6 @@ const mapStateToProps = (State) => {
     error: State.error,
   };
 };
+// withRouter Will Allow Your Component To Send history As A Parameter Which Can Be Used By
+// The Action Inorder To Redirect To Other Page
 export default connect(mapStateToProps, { createProfile })(withRouter(Profile));

@@ -8,9 +8,12 @@ import { Link } from "react-router-dom";
 
 class DashBoard extends Component {
   componentDidMount() {
+    // If User Hard Refresh getCurrentProfile Action Will Be Used To Set Currently Loggedin
+    // User Again
     this.props.getCurrentProfile();
   }
   DeleteAccount = (e) => {
+    // This Action Will Be Used To Delete Account
     this.props.deleteAccount();
   };
   render() {
@@ -18,9 +21,10 @@ class DashBoard extends Component {
     const { user } = this.props.auth;
     const { loading, profile } = this.props.profile;
     if (profile === null || loading) {
+      // If Profile Is Not Set Or Loading Is True It Will Show Spinner
       dashboardContent = <Spinner />;
     } else {
-      // Check LoggedIn User Do Have Profiel
+      // Check LoggedIn User Do Have Profile
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>

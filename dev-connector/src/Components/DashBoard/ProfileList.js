@@ -15,13 +15,16 @@ class ProfileList extends Component {
     const { profiles, loading } = this.props.profile;
     let profileItem;
     if (loading || profiles === null) {
+      // If Profiles Are Not Set Or Loading Show Spinner
       profileItem = <Spinner />;
     } else {
       if (profiles.length > 0) {
+        // If Profiles Loaded The Show All Profiles
         profileItem = profiles.map((profile) => (
           <ProfileItem key={profile._id} profile={profile} />
         ));
       } else {
+        // If Profile Array Is Empty
         profileItem = <h1>No Profile Found :(</h1>;
       }
     }

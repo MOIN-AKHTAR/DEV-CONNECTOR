@@ -5,6 +5,7 @@ import { deleteExperience } from "../../Redux/Action/Profile";
 
 class Experience extends Component {
   deleteExperience = (Id) => {
+    // Delete Experience Action
     this.props.deleteExperience(Id);
   };
 

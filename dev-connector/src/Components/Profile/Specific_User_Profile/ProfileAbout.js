@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { isEmpty } from "../../../Utils/isEmpty";
 
+// This Component Will Be Responsible For Showing About Section Of Your Profile
 export default class ProfileAbout extends Component {
   render() {
     const { profile } = this.props;

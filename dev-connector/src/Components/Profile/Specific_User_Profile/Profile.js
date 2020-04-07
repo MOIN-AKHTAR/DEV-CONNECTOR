@@ -11,6 +11,7 @@ import { getProfileByHandle } from "../../../Redux/Action/Profile";
 class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.handle)
+      // Calling getProfileByHandle Action
       this.props.getProfileByHandle(this.props.match.params.handle);
   }
 
@@ -18,8 +19,10 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile;
     let displayItem;
     if (profile === null || loading) {
+      // If Profile Not set Or Loading Is TRue Show Spinner
       displayItem = <Spinner />;
     } else {
+      // If Profile Set Correclty The Do The Below Action
       displayItem = (
         <div>
           <Link to="/profile-list" className="btn btn-light mb-3">

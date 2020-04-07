@@ -24,13 +24,16 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password,
     };
+    // Calling Action For Login User
     this.props.loginUser(user);
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
+      // If User Is Authenticated Move To Dashboard
       this.props.history.push("/dashboard");
     } else if (nextProps.error) {
+      // If Any Error Show Errors On Login Form
       this.setState({
         error: nextProps.error,
       });
@@ -75,9 +78,11 @@ class Login extends Component {
   }
 }
 
+// Mapping StataToProps
 const mapStateToProps = (State) => ({
   error: State.error,
   auth: State.auth,
 });
 
+// Connecting Component With Redux
 export default connect(mapStateToProps, { loginUser })(Login);
