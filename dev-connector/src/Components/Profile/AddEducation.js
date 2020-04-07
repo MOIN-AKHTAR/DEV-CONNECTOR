@@ -120,12 +120,12 @@ class AddExperience extends Component {
                   </label>
                 </div>
                 <TextArea
-                  placeholder="Job Description"
+                  placeholder="Program Description"
                   name="description"
                   value={this.state.description}
                   onChange={this.onChange}
                   error={this.state.error.description}
-                  info="tell us about the position"
+                  info="Tell us about the program that you were in"
                 />
                 <input
                   type="submit"
